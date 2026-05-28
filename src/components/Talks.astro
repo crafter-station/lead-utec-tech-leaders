@@ -1,0 +1,198 @@
+---
+import { SPEAKERS } from "../lib/speakers";
+---
+<div class="talks-stack">
+  {SPEAKERS.map((s) => (
+    <article id={`talk-${s.id}`} class="talk card-surface">
+      <header class="t-head">
+        <div class="t-marker">
+          <span class="t-marker-num">{s.num}</span>
+          <span class="t-marker-line" aria-hidden="true"></span>
+          <span class="t-marker-area">{s.area}</span>
+        </div>
+
+        <div class="t-id">
+          <h3 class="t-title">{s.talkTitle}</h3>
+          <p class="t-pitch">{s.talkPitch}</p>
+          <div class="t-speaker">
+            {s.photo ? (
+              <img class="t-speaker-photo" src={s.photo} alt={s.name} loading="lazy" decoding="async" />
+            ) : (
+              <span class="t-speaker-initials" aria-hidden="true">{s.initials}</span>
+            )}
+            <div class="t-speaker-meta">
+              <span class="t-speaker-name">{s.name}</span>
+              <span class="t-speaker-role">{s.role}</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div class="t-body">
+        <span class="t-body-label">Puntos clave</span>
+        <ul class="t-points">
+          {s.keyPoints.map((kp, j) => (
+            <li>
+              <span class="t-point-num">{String(j + 1).padStart(2, "0")}</span>
+              <span class="t-point-text">{kp}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </article>
+  ))}
+</div>
+
+<style>
+  .talks-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .talk {
+    padding: clamp(28px, 3vw, 40px);
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    gap: clamp(28px, 4vw, 56px);
+    align-items: start;
+    scroll-margin-top: 110px;
+  }
+
+  .t-head { display: flex; flex-direction: column; gap: 18px; }
+
+  .t-marker {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .t-marker-num {
+    font-family: "Geist Mono", monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    color: var(--forged-gold);
+    padding: 4px 8px;
+    background: color-mix(in srgb, var(--forged-gold) 12%, transparent);
+    border-radius: 4px;
+  }
+  .t-marker-line {
+    width: 32px;
+    height: 1px;
+    background: var(--hairline-strong);
+  }
+  .t-marker-area {
+    font-family: "Geist Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+
+  .t-title {
+    font-family: "Geist", sans-serif;
+    font-size: clamp(24px, 2.6vw, 32px);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+  .t-pitch {
+    font-family: "Geist", sans-serif;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--ink-mute);
+    max-width: 520px;
+    margin-bottom: 20px;
+  }
+
+  .t-speaker {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 16px 10px 10px;
+    background: var(--surface-2);
+    border-radius: 999px;
+    border: 1px solid var(--hairline);
+  }
+  .t-speaker-initials {
+    width: 32px;
+    height: 32px;
+    display: grid;
+    place-items: center;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #FFD435 0%, #C68B05 100%);
+    color: #1a1300;
+    font-family: "Geist", sans-serif;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.04em;
+  }
+  .t-speaker-photo {
+    width: 32px;
+    height: 32px;
+    border-radius: 999px;
+    object-fit: cover;
+    object-position: center 25%;
+    border: 1px solid color-mix(in srgb, var(--forged-gold) 30%, transparent);
+    flex-shrink: 0;
+  }
+  .t-speaker-meta { display: flex; flex-direction: column; gap: 1px; }
+  .t-speaker-name {
+    font-family: "Geist", sans-serif;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: -0.005em;
+  }
+  .t-speaker-role {
+    font-family: "Geist Mono", monospace;
+    font-size: 10px;
+    color: var(--ink-mute);
+  }
+
+  .t-body {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .t-body-label {
+    font-family: "Geist Mono", monospace;
+    font-size: 9.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--forged-gold);
+  }
+  .t-points {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .t-points li {
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 12px;
+    align-items: baseline;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .t-points li:last-child { border-bottom: 0; }
+  .t-point-num {
+    font-family: "Geist Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--ink-dim);
+  }
+  .t-point-text {
+    font-family: "Geist", sans-serif;
+    font-size: 14.5px;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+
+  @media (max-width: 900px) {
+    .talk { grid-template-columns: 1fr; gap: 28px; }
+  }
+</style>

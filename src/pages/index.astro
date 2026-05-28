@@ -1,0 +1,44 @@
+---
+import Layout from "../layouts/Layout.astro";
+import TopBar from "../components/TopBar.astro";
+import Cover from "../components/Cover.astro";
+import Section from "../components/Section.astro";
+import Schedule from "../components/Schedule.astro";
+import Speakers from "../components/Speakers.astro";
+import Talks from "../components/Talks.astro";
+import Footer from "../components/Footer.astro";
+---
+<Layout>
+  <TopBar />
+
+  <Cover />
+
+  <Section
+    id="fechas"
+    num="01"
+    eyebrow="5 y 6 de junio"
+    title="Schedule."
+  >
+    <Schedule />
+  </Section>
+
+  <Section
+    id="speakers"
+    num="02"
+    eyebrow="Tech Leaders"
+    title="Los speakers."
+  >
+    <Speakers />
+  </Section>
+
+  <Section
+    id="charlas"
+    num="03"
+    eyebrow="Career talks"
+    title="Puntos clave."
+  >
+    <Talks />
+  </Section>
+
+  <Footer />
+</Layout>

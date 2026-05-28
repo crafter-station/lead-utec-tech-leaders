@@ -1,0 +1,82 @@
+---
+interface Props {
+  id: string;
+  num: string;
+  title: string;
+  eyebrow?: string;
+  intro?: string;
+}
+
+const { id, num, title, eyebrow, intro } = Astro.props;
+---
+<section id={id} class="brand-section">
+  <header class="sec-head">
+    <div class="sec-meta">
+      <span class="sec-num">{num}</span>
+      {eyebrow && <span class="sec-eyebrow">{eyebrow}</span>}
+    </div>
+    <h2 class="sec-title">{title}</h2>
+    {intro && <p class="sec-intro">{intro}</p>}
+  </header>
+  <div class="sec-body">
+    <slot />
+  </div>
+</section>
+
+<style>
+  .brand-section {
+    padding: clamp(56px, 8vw, 96px) 0;
+    border-top: 1px solid var(--hairline);
+    position: relative;
+  }
+  .brand-section:first-of-type { border-top: 0; }
+  .sec-head {
+    margin-bottom: 0;
+    max-width: 760px;
+  }
+  .sec-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .sec-num {
+    font-family: "Geist Mono", monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    color: var(--forged-gold);
+    padding: 4px 8px;
+    background: color-mix(in srgb, var(--forged-gold) 12%, transparent);
+    border-radius: 4px;
+  }
+  .sec-eyebrow {
+    font-family: "Geist Mono", monospace;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+  }
+  .sec-title {
+    font-family: "Geist", sans-serif;
+    font-size: clamp(28px, 4.2vw, 48px);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 1.05;
+    color: var(--ink);
+    margin-bottom: 12px;
+  }
+  .sec-intro {
+    font-family: "Geist", sans-serif;
+    font-size: clamp(15px, 1.4vw, 17px);
+    line-height: 1.55;
+    color: var(--ink-mute);
+    max-width: 680px;
+  }
+  .sec-body { width: 100%; }
+
+  @media (max-width: 640px) {
+    .brand-section { padding: 48px 0; }
+  }
+</style>

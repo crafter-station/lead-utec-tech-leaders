@@ -1,0 +1,71 @@
+---
+import { CS_PATH, CS_VIEWBOX, type CSVariant } from "../lib/cs-path";
+
+interface Props {
+  variant?: CSVariant;
+  class?: string;
+  ariaLabel?: string;
+}
+
+const {
+  variant = "filled",
+  class: className = "",
+  ariaLabel = "Crafter Station mark",
+} = Astro.props;
+
+const uid = Math.random().toString(36).slice(2, 8);
+---
+<svg
+  viewBox={CS_VIEWBOX}
+  xmlns="http://www.w3.org/2000/svg"
+  role="img"
+  aria-label={ariaLabel}
+  preserveAspectRatio="xMidYMid meet"
+  class={`cs-mark cs-mark--${variant} ${className}`.trim()}
+  style="display:block;"
+>
+  {variant === "filled" && (
+    <>
+      <defs>
+        <linearGradient id={`cs-grad-${uid}`} x1="0.15" y1="0" x2="0.85" y2="1">
+          <stop offset="0%" stop-color="#FFD435" />
+          <stop offset="55%" stop-color="#FFC107" />
+          <stop offset="100%" stop-color="#C68B05" />
+        </linearGradient>
+      </defs>
+      <path d={CS_PATH} fill={`url(#cs-grad-${uid})`} />
+    </>
+  )}
+
+  {variant === "monoline" && (
+    <path d={CS_PATH} fill="none" stroke="#FFC107" stroke-width="5" stroke-linejoin="round" stroke-linecap="round" />
+  )}
+
+  {variant === "plain" && (
+    <path d={CS_PATH} fill="#FFC107" />
+  )}
+
+  {variant === "hologram" && (
+    <>
+      <defs>
+        <linearGradient id={`cs-holo-${uid}`} x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#FFD435" />
+          <stop offset="50%" stop-color="#FFC107" />
+          <stop offset="100%" stop-color="#C68B05" />
+        </linearGradient>
+        <filter id={`cs-holo-glow-${uid}`} x="-30%" y="-30%" width="160%" height="160%">
+          <feGaussianBlur stdDeviation="4" result="blur" />
+          <feColorMatrix in="blur" type="matrix"
+            values="0 0 0 0 1   0 0 0 0 0.76   0 0 0 0 0.03   0 0 0 0.9 0" result="glow" />
+          <feMerge>
+            <feMergeNode in="glow" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+      </defs>
+      <path d={CS_PATH} fill="#FFC107" opacity="0.25" filter={`url(#cs-holo-glow-${uid})`} />
+      <path d={CS_PATH} fill="none" stroke={`url(#cs-holo-${uid})`} stroke-width="3.5" stroke-linejoin="round" />
+      <path d={CS_PATH} fill="none" stroke="#FFD435" stroke-width="0.8" stroke-dasharray="3 5" opacity="0.85" />
+    </>
+  )}
+</svg>

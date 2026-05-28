@@ -1,0 +1,104 @@
+---
+import CSMark from "./CSMark.astro";
+---
+<header class="topbar">
+  <a href="#intro" class="tb-mark" aria-label="Inicio · Crafter Station">
+    <CSMark variant="filled" />
+  </a>
+
+  <nav class="tb-tabs" aria-label="Secciones">
+    <a href="#fechas">Fechas</a>
+    <a href="#speakers">Speakers</a>
+    <a href="#charlas">Charlas</a>
+  </nav>
+
+  <div class="tb-actions">
+    <a class="tb-cta" href="https://crafterstation.com" target="_blank" rel="noopener">
+      <span>Crafter Station</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M7 17 L17 7 M9 7 H17 V15"/>
+      </svg>
+    </a>
+  </div>
+</header>
+
+<style>
+  .topbar {
+    position: fixed;
+    top: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 45;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 24px;
+    align-items: center;
+    padding: 6px 8px 6px 14px;
+    background: color-mix(in srgb, var(--surface) 86%, transparent);
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    border: 1px solid var(--hairline);
+    border-radius: 999px;
+    box-shadow: var(--shadow-card);
+    width: min(780px, calc(100% - 32px));
+  }
+  .tb-mark {
+    width: 28px;
+    height: 28px;
+    display: inline-grid;
+    place-items: center;
+    color: var(--forged-gold);
+    text-decoration: none;
+    filter: drop-shadow(0 4px 8px rgba(255, 193, 7, 0.25));
+    transition: transform 200ms var(--ease-spring);
+  }
+  .tb-mark:hover { transform: scale(1.06); }
+  .tb-mark :global(svg) { width: 22px; height: 22px; display: block; }
+
+  .tb-tabs {
+    display: flex;
+    gap: 4px;
+    justify-self: center;
+  }
+  .tb-tabs a {
+    font-family: "Geist Mono", monospace;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    padding: 7px 12px;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: background 200ms ease, color 200ms ease;
+  }
+  .tb-tabs a:hover {
+    color: var(--ink);
+    background: color-mix(in srgb, var(--forged-gold) 8%, transparent);
+  }
+
+  .tb-actions { justify-self: end; }
+  .tb-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 13px;
+    border-radius: 999px;
+    background: var(--ink);
+    color: var(--bg);
+    font-family: "Geist Mono", monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: transform 200ms var(--ease-spring);
+  }
+  .tb-cta:hover { transform: translateY(-1px); }
+  .tb-cta svg { width: 12px; height: 12px; }
+
+  @media (max-width: 820px) {
+    .tb-tabs { display: none; }
+    .topbar { grid-template-columns: auto auto; justify-content: space-between; width: auto; }
+  }
+</style>

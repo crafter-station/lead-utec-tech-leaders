@@ -1,0 +1,127 @@
+/* ───────────────────────────────────────────────────────
+   LEAD UTEC × Crafter Station — Track Software
+   Dark-locked, derived from cs-brand v1
+─────────────────────────────────────────────────────── */
+:root {
+  /* Brand constants — Crafter Station gold */
+  --forged-gold: #FFC107;
+  --gold-deep:   #C68B05;
+  --gold-light:  #FFD435;
+  --gold-ember:  #DDA607;
+  --gold-mute:   #B07E04;
+
+  /* Co-brand accent — LEAD UTEC pearl (cool counterweight to gold) */
+  --pearl:       #E7ECF2;
+  --pearl-dim:   #9AA3AE;
+
+  /* Dark surfaces — locked */
+  --bg:           #0D0D0D;
+  --surface:      #141414;
+  --surface-2:    #1F1F1F;
+  --surface-3:    #262626;
+  --hairline:     rgba(255, 255, 255, 0.08);
+  --hairline-strong: rgba(255, 255, 255, 0.16);
+  --ink:          #F5F5F5;
+  --ink-mute:     #8A8A8A;
+  --ink-dim:      #525252;
+  --label-color:  var(--forged-gold);
+  --shadow-card:  0 24px 64px rgba(0, 0, 0, 0.5);
+  --shadow-icon:  0 18px 32px rgba(0, 0, 0, 0.55);
+
+  /* Layout */
+  --radius-card: 20px;
+  --radius-app:  44px;
+  --radius-sm:   10px;
+  --pad-x: clamp(20px, 4vw, 64px);
+  --pad-y: clamp(32px, 4vw, 56px);
+
+  /* Type scale */
+  --type-display: clamp(48px, 8vw, 96px);
+  --type-h1: clamp(36px, 5vw, 56px);
+  --type-h2: clamp(28px, 3.5vw, 40px);
+  --type-h3: clamp(20px, 2.2vw, 24px);
+  --type-body: 16px;
+  --type-body-sm: 14px;
+  --type-caption: 12px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --dur-xs: 120ms;
+  --dur-sm: 200ms;
+  --dur-md: 320ms;
+  --dur-lg: 520ms;
+  --dur-xl: 800ms;
+
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { overflow-x: hidden; scroll-behavior: smooth; scroll-padding-top: 100px; }
+html, body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Geist", "Inter", system-ui, sans-serif;
+  font-feature-settings: "ss01", "ss03", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+body {
+  padding: 80px var(--pad-x) var(--pad-y);
+  max-width: 1640px;
+  margin: 0 auto;
+  overflow-x: hidden;
+}
+@media (min-width: 1100px) {
+  body { padding-left: max(var(--pad-x), 80px); }
+}
+img, svg { max-width: 100%; }
+.cs-mark { width: 100%; height: 100%; }
+
+/* Typography utilities */
+.mono { font-family: "Geist Mono", ui-monospace, "SF Mono", monospace; }
+
+.label {
+  font-family: "Geist Mono", ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--label-color);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.label::before {
+  content: "";
+  display: inline-block;
+  width: 2px;
+  height: 12px;
+  background: var(--label-color);
+}
+
+/* Card shell */
+.card-surface {
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-card);
+}
+
+/* Selection */
+::selection {
+  background: color-mix(in srgb, var(--forged-gold) 35%, transparent);
+  color: var(--ink);
+}
+
+@media (max-width: 640px) {
+  body { padding: 24px 18px 56px; }
+  .label { font-size: 10px; letter-spacing: 0.14em; }
+}
+@media (max-width: 380px) {
+  body { padding: 18px 14px 40px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html, body { transition: none !important; }
+  html { scroll-behavior: auto; }
+}

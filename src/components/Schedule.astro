@@ -1,0 +1,317 @@
+---
+const days = [
+  {
+    date: "5 de junio",
+    tag: "Día 1",
+    start: "3:30 PM",
+  },
+  {
+    date: "6 de junio",
+    tag: "Full day",
+    start: "9:00 AM",
+  },
+];
+
+const MAP_SRC =
+  "https://www.google.com/maps?q=-12.1352054,-77.0221411&z=17&output=embed";
+const MAP_LINK =
+  "https://www.google.com/maps/place/Universidad+de+Ingenier%C3%ADa+y+Tecnolog%C3%ADa+-+UTEC/@-12.1352054,-77.0221411,17z";
+---
+<div class="sch-wrap">
+  <div class="sch-bg" aria-hidden="true">
+    <iframe
+      class="sch-map"
+      src={MAP_SRC}
+      title="Mapa de UTEC"
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      tabindex="-1"
+      width="100%"
+      height="100%"
+    ></iframe>
+    <div class="sch-vignette"></div>
+  </div>
+
+  <header class="sch-header">
+    <div class="sch-days">
+      {days.map((d, i) => (
+        <article class="sch-card">
+          <span class="sch-num">{String(i + 1).padStart(2, "0")}</span>
+          <div class="sch-card-meta">
+            <span class="sch-tag">{d.tag}</span>
+            <h3 class="sch-date">{d.date}</h3>
+          </div>
+          <span class="sch-card-divider" aria-hidden="true"></span>
+          <span class="sch-start">{d.start}</span>
+        </article>
+      ))}
+    </div>
+  </header>
+
+  <a class="sch-marker-link" href={MAP_LINK} target="_blank" rel="noopener" aria-label="Ver UTEC en Google Maps">
+    <span class="sch-pulse" aria-hidden="true"></span>
+    <span class="sch-pin" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 21s-7-7.5-7-12a7 7 0 0 1 14 0c0 4.5-7 12-7 12Z" fill="currentColor"/>
+        <circle cx="12" cy="9" r="2.8" fill="#1a1300"/>
+      </svg>
+    </span>
+
+    <div class="sch-tooltip">
+      <span class="sch-tooltip-arrow" aria-hidden="true"></span>
+      <div class="sch-tooltip-body">
+        <span class="sch-tooltip-label">Sede</span>
+        <span class="sch-tooltip-value">UTEC · Aula Magna</span>
+      </div>
+      <span class="sch-tooltip-cta" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M7 17 L17 7 M9 7 H17 V15"/>
+        </svg>
+      </span>
+    </div>
+  </a>
+</div>
+
+<style>
+  .sch-wrap {
+    position: relative;
+    border-radius: var(--radius-card);
+    border: 1px solid var(--hairline);
+    overflow: hidden;
+    isolation: isolate;
+    min-height: 400px;
+    background: var(--bg);
+  }
+
+  /* ── Map background ─────────────────────────── */
+  .sch-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .sch-map {
+    position: absolute;
+    top: -8%;
+    left: -8%;
+    width: 116%;
+    height: 116%;
+    border: 0;
+    display: block;
+    filter:
+      invert(0.94)
+      hue-rotate(180deg)
+      saturate(0.3)
+      brightness(0.65)
+      contrast(1.1);
+    opacity: 0.7;
+    -webkit-mask-image: radial-gradient(ellipse 78% 75% at 50% 50%, #000 25%, transparent 88%);
+    mask-image: radial-gradient(ellipse 78% 75% at 50% 50%, #000 25%, transparent 88%);
+    pointer-events: none;
+  }
+  .sch-vignette {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(60% 50% at 50% 50%, transparent 0%, rgba(13,13,13,0.25) 60%, rgba(13,13,13,0.85) 100%),
+      linear-gradient(180deg, rgba(13,13,13,0.55) 0%, rgba(13,13,13,0.30) 35%, rgba(13,13,13,0.65) 100%);
+  }
+
+  /* ── Header (lede + day pills) ───────────────── */
+  .sch-header {
+    position: relative;
+    z-index: 1;
+    padding: clamp(36px, 4.5vw, 56px);
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+    pointer-events: none;
+  }
+  .sch-header > * { pointer-events: auto; }
+
+  .sch-days {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .sch-card {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    padding: 13px 18px 13px 13px;
+    border-radius: 14px;
+    border: 1px solid var(--hairline);
+    background: color-mix(in srgb, var(--surface) 75%, transparent);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    transition: border-color 220ms var(--ease-out), transform 220ms var(--ease-out);
+  }
+  .sch-card:hover {
+    border-color: color-mix(in srgb, var(--forged-gold) 35%, var(--hairline));
+    transform: translateY(-2px);
+  }
+  .sch-num {
+    font-family: "Geist Mono", monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    color: var(--forged-gold);
+    padding: 5px 9px;
+    background: color-mix(in srgb, var(--forged-gold) 14%, transparent);
+    border-radius: 6px;
+    line-height: 1;
+  }
+  .sch-card-meta { display: flex; flex-direction: column; gap: 2px; }
+  .sch-tag {
+    font-family: "Geist Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-mute);
+    line-height: 1.2;
+  }
+  .sch-date {
+    font-family: "Geist", sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: -0.015em;
+    line-height: 1.15;
+  }
+  .sch-card-divider {
+    width: 1px;
+    height: 28px;
+    background: var(--hairline);
+  }
+  .sch-start {
+    font-family: "Geist Mono", monospace;
+    font-size: 13.5px;
+    color: var(--ink);
+    letter-spacing: 0.04em;
+  }
+
+  /* ── Marker + tooltip ─────────────────────────── */
+  .sch-marker-link {
+    position: absolute;
+    top: 52%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+  }
+  a.sch-marker-link,
+  a.sch-marker-link:link,
+  a.sch-marker-link:visited,
+  a.sch-marker-link:hover { text-decoration: none; }
+
+  .sch-pin {
+    position: relative;
+    width: 48px;
+    height: 48px;
+    color: var(--forged-gold);
+    filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.75));
+    transition: transform 220ms var(--ease-spring);
+    z-index: 1;
+  }
+  .sch-pin svg { width: 100%; height: 100%; display: block; }
+  .sch-marker-link:hover .sch-pin { transform: scale(1.08) translateY(-2px); }
+
+  .sch-pulse {
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
+    background: var(--forged-gold);
+    opacity: 0.4;
+    animation: sch-pulse 2.2s var(--ease-out) infinite;
+    pointer-events: none;
+    z-index: 0;
+  }
+  @keyframes sch-pulse {
+    0%   { transform: translateX(-50%) scale(0.3);  opacity: 0.55; }
+    80%  { transform: translateX(-50%) scale(2.4);  opacity: 0; }
+    100% { transform: translateX(-50%) scale(2.4);  opacity: 0; }
+  }
+
+  .sch-tooltip {
+    position: relative;
+    margin-top: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    padding: 13px 18px 13px 18px;
+    border-radius: 14px;
+    border: 1px solid color-mix(in srgb, var(--forged-gold) 25%, var(--hairline));
+    background: color-mix(in srgb, var(--surface) 92%, transparent);
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+    box-shadow: 0 16px 42px rgba(0, 0, 0, 0.6);
+    white-space: nowrap;
+    transition: border-color 220ms var(--ease-out), transform 220ms var(--ease-out);
+  }
+  .sch-marker-link:hover .sch-tooltip {
+    border-color: color-mix(in srgb, var(--forged-gold) 50%, var(--hairline));
+    transform: translateY(-2px);
+  }
+  .sch-tooltip-arrow {
+    position: absolute;
+    top: -7px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 12px;
+    height: 12px;
+    background: color-mix(in srgb, var(--surface) 92%, transparent);
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+    border-left: 1px solid color-mix(in srgb, var(--forged-gold) 25%, var(--hairline));
+    border-top: 1px solid color-mix(in srgb, var(--forged-gold) 25%, var(--hairline));
+  }
+  .sch-tooltip-body { display: flex; flex-direction: column; gap: 2px; }
+  .sch-tooltip-label {
+    font-family: "Geist Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--forged-gold);
+    line-height: 1.2;
+  }
+  .sch-tooltip-value {
+    font-family: "Geist", sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+  }
+  .sch-tooltip-cta {
+    width: 26px;
+    height: 26px;
+    display: grid;
+    place-items: center;
+    color: var(--ink-mute);
+    transition: color 200ms ease, transform 200ms var(--ease-out);
+  }
+  .sch-tooltip-cta svg { width: 14px; height: 14px; }
+  .sch-marker-link:hover .sch-tooltip-cta {
+    color: var(--forged-gold);
+    transform: translate(2px, -2px);
+  }
+
+  @media (max-width: 720px) {
+    .sch-wrap { min-height: 780px; }
+    .sch-days { flex-direction: column; }
+    .sch-card { width: 100%; justify-content: flex-start; }
+    .sch-tooltip { white-space: normal; max-width: 260px; }
+  }
+</style>
