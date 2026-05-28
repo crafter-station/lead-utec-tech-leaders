@@ -3,6 +3,12 @@ import LeadMark from "./LeadMark.astro";
 import CSMark from "./CSMark.astro";
 ---
 <section id="intro" class="cover">
+  <div class="c-orbs" aria-hidden="true">
+    <span class="c-orb c-orb--1"></span>
+    <span class="c-orb c-orb--2"></span>
+    <span class="c-orb c-orb--3"></span>
+    <span class="c-orb c-orb--4"></span>
+  </div>
   <div class="cover-grid" aria-hidden="true"></div>
 
   <span class="c-tick c-tick--tl" aria-hidden="true"></span>
@@ -71,6 +77,88 @@ import CSMark from "./CSMark.astro";
       linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
     background-size: calc(100% / 12) calc(100% / 8);
     pointer-events: none;
+  }
+
+  .c-orbs {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .c-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(40px);
+    mix-blend-mode: screen;
+    will-change: transform;
+  }
+  /* Orb 1 — top-left corner */
+  .c-orb--1 {
+    width: 320px;
+    height: 320px;
+    top: -80px;
+    left: -80px;
+    background: radial-gradient(circle, rgba(255, 193, 7, 0.95), rgba(255, 193, 7, 0.32) 40%, transparent 72%);
+    animation: orb-drift-1 12s ease-in-out infinite;
+    opacity: 0.85;
+  }
+  /* Orb 2 — top-right corner */
+  .c-orb--2 {
+    width: 380px;
+    height: 380px;
+    top: -100px;
+    right: -100px;
+    background: radial-gradient(circle, rgba(255, 212, 53, 0.90), rgba(255, 193, 7, 0.26) 40%, transparent 72%);
+    animation: orb-drift-2 14s ease-in-out infinite -4s;
+    opacity: 0.8;
+  }
+  /* Orb 3 — bottom-left corner */
+  .c-orb--3 {
+    width: 260px;
+    height: 260px;
+    bottom: -60px;
+    left: -60px;
+    background: radial-gradient(circle, rgba(231, 236, 242, 0.75), rgba(231, 236, 242, 0.22) 45%, transparent 72%);
+    animation: orb-drift-3 13s ease-in-out infinite -8s;
+    opacity: 0.7;
+  }
+  /* Orb 4 — bottom-right corner */
+  .c-orb--4 {
+    width: 340px;
+    height: 340px;
+    bottom: -90px;
+    right: -90px;
+    background: radial-gradient(circle, rgba(221, 166, 7, 0.90), rgba(198, 139, 5, 0.26) 45%, transparent 72%);
+    animation: orb-drift-4 15s ease-in-out infinite -11s;
+    opacity: 0.8;
+  }
+
+  /* All four converge near the center, then return.
+     Different scales/durations keep them out of sync. */
+  @keyframes orb-drift-1 {
+    /* TL → center */
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50%      { transform: translate(720px, 380px) scale(1.35); }
+  }
+  @keyframes orb-drift-2 {
+    /* TR → center */
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50%      { transform: translate(-760px, 380px) scale(1.3); }
+  }
+  @keyframes orb-drift-3 {
+    /* BL → center */
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50%      { transform: translate(740px, -360px) scale(1.45); }
+  }
+  @keyframes orb-drift-4 {
+    /* BR → center */
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50%      { transform: translate(-780px, -400px) scale(1.3); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .c-orb { animation: none; }
   }
 
   .c-tick {
