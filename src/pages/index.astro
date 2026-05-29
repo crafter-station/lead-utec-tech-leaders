@@ -4,6 +4,7 @@ import TopBar from "../components/TopBar.astro";
 import Cover from "../components/Cover.astro";
 import Section from "../components/Section.astro";
 import Schedule from "../components/Schedule.astro";
+import Register from "../components/Register.astro";
 import Speakers from "../components/Speakers.astro";
 import Talks from "../components/Talks.astro";
 import Footer from "../components/Footer.astro";
@@ -23,8 +24,17 @@ import Footer from "../components/Footer.astro";
   </Section>
 
   <Section
-    id="speakers"
+    id="registro"
     num="02"
+    eyebrow="Inscripción"
+    title="Reserva tu lugar."
+  >
+    <Register />
+  </Section>
+
+  <Section
+    id="speakers"
+    num="03"
     eyebrow="Tech Leaders"
     title="Los speakers."
   >
@@ -33,7 +43,7 @@ import Footer from "../components/Footer.astro";
 
   <Section
     id="charlas"
-    num="03"
+    num="04"
     eyebrow="Career talks"
     title="Puntos clave."
   >
