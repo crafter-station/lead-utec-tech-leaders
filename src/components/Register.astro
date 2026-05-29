@@ -44,10 +44,18 @@ const LUMA_EMBED = `https://lu.ma/embed/event/${LUMA_EVENT_ID}/simple`;
   }
   .reg-iframe {
     display: block;
-    width: 100%;
+    /* slightly wider than the frame so its scrollbar gets clipped */
+    width: calc(100% + 20px);
     min-height: 500px;
     border: 0;
     color-scheme: light;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .reg-iframe::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
   }
 
   .reg-fallback {
